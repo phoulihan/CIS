@@ -133,4 +133,3 @@ the_path = 'C:/Users/pathouli/myStuff/academia/torhea/data/'
 the_files = list_txt_files(the_path)
 
 my_clean_text = [tokenize_text(word) for word in the_files]
-
