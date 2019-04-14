@@ -14,8 +14,3 @@ framework = nlp_func()
 the_files =  framework.list_txt_files(the_path)
 
 
-
-
-
-
-
