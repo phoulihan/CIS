@@ -6,6 +6,7 @@ Created on Sat Apr 13 20:30:42 2019
 """
 import re, os
 import pandas as pd
+from nltk.corpus import stopwords
 
 class nlp_func():
     
@@ -23,6 +24,7 @@ class nlp_func():
         return text_split_out
     
     def list_txt_files(self, the_path):
+        the_stopwords = set(stopwords.words('english'))
         full_list = pd.DataFrame()
         the_dirs = os.listdir(the_path)
         for word in the_dirs:
@@ -30,9 +32,12 @@ class nlp_func():
             for filename in os.listdir(the_path_tmp):
                 if filename.endswith(".txt"): 
                     file_path = the_path_tmp + '/' + filename
+                    tmp = self.tokenize_text(file_path)
+                    the_body_tmp = [word for word in tmp.split() if word not in the_stopwords]
+                    the_body = ' '.join(the_body_tmp)
                     full_list = full_list.append(
                             {'label': word,
-                             'body': self.tokenize_text(file_path)}, ignore_index=True)
+                             'body': the_body}, ignore_index=True)
                     continue
                 else:
                     continue
