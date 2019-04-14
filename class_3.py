@@ -16,8 +16,8 @@ def tokenize_text(file_path):
     text_split_pre = text_split_pre.split()
     text_split = [re.sub('[^A-Za-z0-9]+', '', word).lower() for word in text_split_pre]
     
-    text_split_out = ' '.join(text_split)
-    
+    text_split_out = re.sub(' +', ' ', ' '.join(text_split))
+  
     return text_split_out
 
 def list_txt_files(the_path_var):
@@ -29,7 +29,8 @@ def list_txt_files(the_path_var):
             if filename.endswith(".txt"): 
                 file_path = the_path_tmp + '/' + filename
                 full_list = full_list.append(
-                        {'body': file_path, 'label': word}, ignore_index=True)
+                        {'label': word,
+                         'body': tokenize_text(file_path)}, ignore_index=True)
                 continue
             else:
                 continue
@@ -39,5 +40,3 @@ def list_txt_files(the_path_var):
 the_path = 'C:/Users/pathouli/myStuff/academia/torhea/data/'
 
 the_files = list_txt_files(the_path)
-
-my_clean_text = [tokenize_text(word) for word in the_files]
