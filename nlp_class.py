@@ -44,3 +44,16 @@ class nlp_func():
                     continue
     
         return full_list
+    
+    def the_vec_func(self, files_in):
+        from sklearn.feature_extraction.text import CountVectorizer
+        from sklearn import preprocessing
+        
+        the_vec = CountVectorizer()
+        cnt_vec = pd.DataFrame(the_vec.fit_transform(files_in.body).toarray())
+        cnt_vec.columns = the_vec.get_feature_names()
+        
+        lab_enc = preprocessing.LabelEncoder()
+        the_labels = pd.DataFrame(lab_enc.fit_transform(files_in.label))
+        
+        return cnt_vec, the_labels
