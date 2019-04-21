@@ -51,22 +51,3 @@ class nlp_func():
                 
         return full_list
                 
-                    
-                   
-    
-    
-                            
-                    
-    
-            
-       
-    
-        return full_list
-    
-    
-    
-        
-
-    
-
-    
