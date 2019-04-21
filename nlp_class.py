@@ -17,7 +17,7 @@ class nlp_func():
         the_text_tmp.close()
         text_split_pre = ' '.join(the_text)
         text_split_pre = text_split_pre.split()
-        text_split = [re.sub('[^A-Za-z0-9]+', '', word).lower() for word in text_split_pre]
+        text_split = [re.sub('[^A-Za-z]+', '', word).lower() for word in text_split_pre]
         
         text_split_out = re.sub(' +', ' ', ' '.join(text_split))
       
@@ -29,11 +29,12 @@ class nlp_func():
         the_dirs = os.listdir(the_path)
         for word in the_dirs:
             the_path_tmp = the_path + word
+            print word
             for filename in os.listdir(the_path_tmp):
                 if filename.endswith(".txt"): 
                     file_path = the_path_tmp + '/' + filename
                     tmp = self.tokenize_text(file_path)
-                    the_body_tmp = [word for word in tmp.split() if word not in the_stopwords]
+                    the_body_tmp = [word_i for word_i in tmp.split() if word_i not in the_stopwords]
                     the_body = ' '.join(the_body_tmp)
                     full_list = full_list.append(
                             {'label': word,
