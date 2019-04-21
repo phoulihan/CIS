@@ -7,7 +7,7 @@ Created on Sat Apr 13 21:38:37 2019
 
 from nlp_class import nlp_func
 
-the_path = 'C:/Users/pathouli/myStuff/academia/torhea/data/'
+the_path = './data/'
 
 framework = nlp_func()
 
