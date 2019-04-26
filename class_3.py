@@ -37,7 +37,6 @@ def list_txt_files(the_path_var):
 
     return full_list
 
-the_path = './data/'
+the_path = 'C:/Users/pathouli/myStuff/academia/torhea/data/'
 
 the_files = list_txt_files(the_path)
-print(the_files)
