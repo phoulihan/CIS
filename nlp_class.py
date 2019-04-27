@@ -56,8 +56,8 @@ class nlp_func():
         lab_enc = preprocessing.LabelEncoder()
         the_labels = pd.DataFrame(lab_enc.fit_transform(files_in.label))
         
-        return cnt_vec, the_labels
-    
+        return the_vec, lab_enc, cnt_vec, the_labels
+
     def pca_step(self, data_in, num_comp):
         from sklearn.decomposition import PCA
         my_vec_model = PCA(n_components=num_comp)
@@ -73,4 +73,4 @@ class nlp_func():
         the_model.fit(my_vec_in, labels_in)
         feature_imp = the_model.feature_importances_
         
-        return feature_imp
+        return the_model
