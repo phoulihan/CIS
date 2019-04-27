@@ -1,4 +1,4 @@
-gi# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Created on Sat Apr 13 20:30:42 2019
 
@@ -29,7 +29,9 @@ class nlp_func():
         tmp2 = self.function2(the_path)
         the_body_tmp = [word_i for word_i in tmp2.split() if word_i not in the_stopwords]
         the_body = ' '.join(the_body_tmp)
-        full_list = full_list.append({'label': word,'body': the_body}, ignore_index=True)
+        the_dirs = os.listdir(the_path)
+        for word in the_dirs:
+            full_list = full_list.append({'label': word,'body': the_body}, ignore_index=True)
     
         return full_list
     

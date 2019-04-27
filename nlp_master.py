@@ -13,7 +13,7 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV
 
-the_path = 'C:/Users/pathouli/myStuff/academia/torhea/data/'
+the_path = 'C:/Users/Tyler/data/'
 
 framework = nlp_func()
 
