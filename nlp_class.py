@@ -57,3 +57,20 @@ class nlp_func():
         the_labels = pd.DataFrame(lab_enc.fit_transform(files_in.label))
         
         return cnt_vec, the_labels
+    
+    def pca_step(self, data_in, num_comp):
+        from sklearn.decomposition import PCA
+        my_vec_model = PCA(n_components=num_comp)
+        my_vec_model.fit(data_in)
+        my_vec_pca = my_vec_model.transform(data_in)
+        
+        print ("Variance Explained: " + str(sum(my_vec_model.explained_variance_ratio_)))
+        
+        return my_vec_pca
+    
+    def full_train(self, the_model, my_vec_in, labels_in):
+        #optimal_rf = RandomForestClassifier(bootstrap=False,criterion="gini",max_depth=20,n_estimators=50)
+        the_model.fit(my_vec_in, labels_in)
+        feature_imp = the_model.feature_importances_
+        
+        return feature_imp
