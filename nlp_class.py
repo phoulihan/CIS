@@ -44,7 +44,7 @@ class nlp_func():
                     continue
     
         return full_list
-    
+ 
     def the_vec_func(self, files_in):
         from sklearn.feature_extraction.text import CountVectorizer
         from sklearn import preprocessing
@@ -68,9 +68,29 @@ class nlp_func():
         
         return my_vec_pca
     
-    def full_train(self, the_model, my_vec_in, labels_in):
-        #optimal_rf = RandomForestClassifier(bootstrap=False,criterion="gini",max_depth=20,n_estimators=50)
+    def grid_search_func(self, param_grid, the_mode_in, the_vec_in, the_lab_in):
+        from sklearn.model_selection import GridSearchCV
+        
+        grid_search = GridSearchCV(the_mode_in, param_grid=param_grid, cv=5)
+        best_model = grid_search.fit(the_vec_in, the_lab_in)
+        
+        max_score = grid_search.best_score_
+        best_params = grid_search.best_params_
+        
+        return best_model, max_score, best_params
+    
+    def full_train(self, the_model, gridsearch_model_in, my_vec_in, labels_in):
+        the_model.set_params(**gridsearch_model_in.best_params_)
         the_model.fit(my_vec_in, labels_in)
         feature_imp = the_model.feature_importances_
         
-        return the_model
+        return the_model, feature_imp
+    
+    def predict(self, the_model, vec_mod, label_dec, path_in):
+        first = self.tokenize_text(path_in)
+        test_data = vec_mod.transform([first])
+        the_prediction = label_dec.inverse_transform(the_model.predict(test_data)[0])
+        print (the_model.predict_proba(test_data)[0])
+        score = max(the_model.predict_proba(test_data)[0])
+        
+        return the_prediction, score
