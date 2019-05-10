@@ -6,8 +6,15 @@ Created on Sat Apr 13 21:38:37 2019
 """
 
 from nlp_class import nlp_func
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_score, GridSearchCV
+import numpy as np
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.svm import SVC
+from sklearn.model_selection import GridSearchCV
 
-the_path = 'C:/Users/pathouli/myStuff/academia/torhea/data/'
+the_path = 'C:/Users/HYQ-data/'
 
 framework = nlp_func()
 
