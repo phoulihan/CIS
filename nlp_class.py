@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Apr 13 20:30:42 2019
-@author: pathouli
-"""
 import re, os
 import pandas as pd
 from nltk.corpus import stopwords
