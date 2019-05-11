@@ -23,7 +23,6 @@ class nlp_func():
         text_split = [re.sub('[^A-Za-z]+', '', word).lower() for word in text_split_pre]
         
         text_split_out = re.sub(' +', ' ', ' '.join(text_split))
-      
         return text_split_out
     
     def list_txt_files(self, the_path):
@@ -83,17 +82,26 @@ class nlp_func():
         return best_model, max_score, best_params
     
     def full_train(self, the_model, gridsearch_model_in, my_vec_in, labels_in):
+        import pandas as pd
+        
         the_model.set_params(**gridsearch_model_in.best_params_)
         the_model.fit(my_vec_in, labels_in)
         feature_imp = the_model.feature_importances_
         
-        return the_model, feature_imp
+        feature_imp_sort = pd.DataFrame(feature_imp)
+        feature_imp_sort.index = my_vec_in.columns
+        feature_imp_sort["features"] = feature_imp_sort[0]
+        feature_imp_sort = feature_imp_sort["features"]
+        feat_meaning = feature_imp_sort[feature_imp_sort > 0]
+        feat_meaning = feat_meaning.sort_values(ascending=False)
+        
+        return the_model, feat_meaning
     
     def predict(self, the_model, vec_mod, label_dec, path_in, sw):
         first = self.tokenize_text(path_in, sw)
         test_data = vec_mod.transform([first])
         the_prediction = label_dec.inverse_transform(the_model.predict(test_data)[0])
-        print (the_model.predict_proba(test_data)[0])
+        # print (the_model.predict_proba(test_data)[0])
         score = max(the_model.predict_proba(test_data)[0])
         
         return the_prediction, score
