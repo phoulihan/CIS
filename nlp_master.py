@@ -42,6 +42,9 @@ gridsearch_model, best, opt_params = framework.grid_search_func(param_grid, the_
 optimal_rf = RandomForestClassifier()
 framework.full_train(optimal_rf, gridsearch_model, my_vec, labels) 
 
-prediction, prediction_proba = framework.predict(optimal_rf, my_vec_model, label_decoder, "C:/Users/pathouli/myStuff/academia/torhea/sample_data/sample.txt")
 
-# 
+#the_test = "C:/Users/pathouli/myStuff/academia/torhea/sample_data/sample.txt"
+# prediction, prediction_proba = framework.predict(optimal_rf, my_vec_model, label_decoder, the_test, None)
+
+the_test = "fly fishing is fun to do"
+prediction, prediction_proba = framework.predict(optimal_rf, my_vec_model, label_decoder, the_test, None)

@@ -10,11 +10,14 @@ from nltk.corpus import stopwords
 
 class nlp_func():
     
-    def tokenize_text(self, file_path):
+    def tokenize_text(self, file_path, sw):
         #read text from file and TOKENIZE
-        the_text_tmp = open(file_path, 'r')
-        the_text = the_text_tmp.readlines()
-        the_text_tmp.close()
+        if sw == 'file':
+            the_text_tmp = open(file_path, 'r')
+            the_text = the_text_tmp.readlines()
+            the_text_tmp.close()
+        else:
+            the_text = file_path
         text_split_pre = ' '.join(the_text)
         text_split_pre = text_split_pre.split()
         text_split = [re.sub('[^A-Za-z]+', '', word).lower() for word in text_split_pre]
@@ -33,7 +36,7 @@ class nlp_func():
             for filename in os.listdir(the_path_tmp):
                 if filename.endswith(".txt"): 
                     file_path = the_path_tmp + '/' + filename
-                    tmp = self.tokenize_text(file_path)
+                    tmp = self.tokenize_text(file_path, 'file')
                     the_body_tmp = [word_i for word_i in tmp.split() if word_i not in the_stopwords]
                     the_body = ' '.join(the_body_tmp)
                     full_list = full_list.append(
@@ -86,8 +89,8 @@ class nlp_func():
         
         return the_model, feature_imp
     
-    def predict(self, the_model, vec_mod, label_dec, path_in):
-        first = self.tokenize_text(path_in)
+    def predict(self, the_model, vec_mod, label_dec, path_in, sw):
+        first = self.tokenize_text(path_in, sw)
         test_data = vec_mod.transform([first])
         the_prediction = label_dec.inverse_transform(the_model.predict(test_data)[0])
         print (the_model.predict_proba(test_data)[0])
