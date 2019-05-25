@@ -20,3 +20,5 @@ X = allstate_data[X_cols][1:10000]
 y = allstate_data[label_cols][1:10000] #small sample to test      
           
 clf.fit(X, y).predict(X) 
+
+# https://www.kaggle.com/c/allstate-purchase-prediction-challenge/data
